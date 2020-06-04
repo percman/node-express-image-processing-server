@@ -1,5 +1,6 @@
 const {Router} = require('express');
 const multer = require('multer');
+const path = require('path');
 
 // eslint-disable-next-line new-cap
 const router = Router();
@@ -8,20 +9,25 @@ const storage = multer.diskStorage(
     {destination: 'api/uploads/', filename: filename});
 
 const upload = multer({fileFilter: fileFilter, storage: storage});
+const photoPath = path.resolve(__dirname, '../../client/photo-viewer.html');
+
+router.get('/photo-viewer', (request, response)=>{
+  response.sendfile(photoPath);
+});
 
 /**
- * @param {*} request An HTTP request
- * @param {*} file File information
- * @param {*} callback A callback function
+ * @param {Request} request An HTTP request
+ * @param {File} file File information
+ * @param {Function} callback A callback function
  */
 function filename(request, file, callback) {
   callback(null, file.originalname);
 };
 
 /**
- * @param {*} request An HTTP request
- * @param {*} file File information
- * @param {*} callback A callback function
+ * @param {Request} request An HTTP request
+ * @param {File} file File information
+ * @param {Function} callback A callback function
  */
 function fileFilter(request, file, callback) {
   if (file.mimetype!=='image/png') {
