@@ -391,7 +391,6 @@ describe('module 4', () => {
           .expect(201);
 
       files = fs.readdirSync(directory);
-
       expect(files.includes('ullr.png'), 'Did you call `imageProcessor()` inside the `\'/upload\'` route?').to.be.true;
       expect(files.includes('resized-ullr.png'), 'Did you call `imageProcessor()` inside the `\'/upload\'` route?').to.be.true;
       expect(files.includes('monochrome-ullr.png'), 'Did you call `imageProcessor()` inside the `\'/upload\'` route?').to.be.true;
